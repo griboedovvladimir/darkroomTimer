@@ -1,3 +1,5 @@
+
+
 (function () {
 'use strict';
 let placeholder=document.querySelector('#wrapper');
@@ -8,15 +10,24 @@ let placeholder=document.querySelector('#wrapper');
     }, false);
 
 function rout() {
+    placeholder.innerHTML='';
     switch (location.hash) {
         case '':
-            document.location.href = "#login";
+            if (localStorage.getItem('darkroomtimer')) {
+                document.location.href = "#main";
+            }
+            else{
+                document.location.href = "#login";
+            }
+            break;
+        case '#main':
+            Main.goMain(placeholder);
             break;
         case '#login':
             Login.goLogin(placeholder);
             break;
         case '#registration':
-            placeholder.innerHTML='';
+            Registration.goRegistration(placeholder);
             break;
 
     }
