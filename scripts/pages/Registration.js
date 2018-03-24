@@ -46,8 +46,10 @@ class Registration{
                                 document.location.href = "#main";
                             }
                             else {
+                                if (document.getElementById('registerErrMessage'))document.getElementById('registerErrMessage').remove();
                                 let errMessage = document.createElement('p');
-                                errMessage.innerHTML = 'Такой email уже существует';
+                                errMessage.id='registerErrMessage';
+                                errMessage.innerHTML = 'This email address already exists';
                                 errMessage.style.color = 'red';
                                 form.appendChild(errMessage);
                             }

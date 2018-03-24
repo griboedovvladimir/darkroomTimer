@@ -45,8 +45,10 @@ class Login{
                                 document.location.href = "#main";
                             }
                             else {
+                                if(document.getElementById('errMessage'))document.getElementById('errMessage').remove();
                                 let errMessage = document.createElement('p');
-                                errMessage.innerHTML = 'Такой email и пороль не найдены';
+                                errMessage.innerHTML = 'This email and password are not found';
+                                errMessage.id='errMessage';
                                 errMessage.style.color = 'red';
                                 form.appendChild(errMessage);
                             }

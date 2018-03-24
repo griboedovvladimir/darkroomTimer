@@ -1,6 +1,6 @@
 class Timer {
     constructor(wrapper, name) {
-        this.wrapper = wrapper;
+        this.wrapper = document.getElementById(wrapper);
         this.name = name;
         this.newTimer = document.createElement('div');
         this.newTimer.id = "timer" + this.name;
@@ -8,9 +8,9 @@ class Timer {
     }
 
     addTimer() {
-        this.newTimer.innerHTML = '<h4 id="process' + this.name + '">process</h4><span id="numbers' + this.name + '" style="color: #f00; font-size: 300%; font-weight: bold; font-family: Cabin Sketch, cursive;">00:00:00</span><p id="notes'+this.name+'"></p><br><button id = "pause' +
+        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><h4 id="process' + this.name + '">process</h4><span id="numbers' + this.name + '" style="color: #f00; font-size: 300%; font-weight: bold; font-family: Cabin Sketch, cursive;">00:00:00</span><p id="notes'+this.name+'"></p><br><button id = "pause' +
             this.name + '">pause</button><button id = "start' + this.name +
-            '">start</button><button id = "delete' + this.name + '">delete</button><button id = "set' + this.name + '">set</button><button id = "loadfilmpreset' + this.name + '" >load film develop time</button>' +
+            '">start</button><button id = "set' + this.name + '">set</button><button id = "loadfilmpreset' + this.name + '" >load film develop time</button>' +
             'Select process<select id="select' + this.name + '"><option>film developer</option><option>developer</option><option>fix bath</option><option>stop bath</option><option>washing</option><option>drying</option><option>stabilised</option><option>exposure</option></select><br>Other process<input type="text" id="other_process' + this.name +
             '" name="min" size="4" value=""/><br><input type="text" id="min' +
             this.name + '" name="min" size="1" value="00"/>:<input type="text" id="sec' + this.name + '" name="sec" size="1" value="00"/>:<input type="text" id="ms' +
@@ -54,7 +54,8 @@ class Timer {
                 form.innerHTML = form.innerHTML + '<button id="selectbutton' + name + '">Select</button>';
                 document.getElementById('selectbutton' + name).addEventListener('click', addform2);
 
-                function addform2() {
+                function addform2(event) {
+                    event.preventDefault();
                     if (document.getElementById('formparameters' + name)) document.getElementById('formparameters' + name).remove();
                     let div = document.createElement('div');
                     div.id = 'formparameters' + name;
@@ -102,7 +103,8 @@ class Timer {
                             div.appendChild(buttonSet);
                             buttonSet.addEventListener('click', setFilmTime);
 
-                            function setFilmTime() {
+                            function setFilmTime(event) {
+                                event.preventDefault();
                                 let film_req = encodeURIComponent(document.getElementById('film' + name).value),
                                     type_req = encodeURIComponent(document.getElementById('filmtype' + name).value),
                                     dev_req = encodeURIComponent(document.getElementById('dev' + name).value),
@@ -142,23 +144,23 @@ class Timer {
                 }
             });
 
-            function post(url, requestuestBody) {
-                return new Promise(function (succeed, fail) {
-                    let request = new XMLHttpRequest();
-                    request.open("POST", url, true);
-                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
-                    request.addEventListener("load", function () {
-                        if (request.status < 400)
-                            succeed(this.responseText);
-                        else
-                            fail(new Error("Request failed: " + request.statusText));
-                    });
-                    request.addEventListener("error", function () {
-                        fail(new Error("Network error"));
-                    });
-                    request.send(requestuestBody);
-                });
-            }
+            // function post(url, requestuestBody) {
+            //     return new Promise(function (succeed, fail) {
+            //         let request = new XMLHttpRequest();
+            //         request.open("POST", url, true);
+            //         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+            //         request.addEventListener("load", function () {
+            //             if (request.status < 400)
+            //                 succeed(this.responseText);
+            //             else
+            //                 fail(new Error("Request failed: " + request.statusText));
+            //         });
+            //         request.addEventListener("error", function () {
+            //             fail(new Error("Network error"));
+            //         });
+            //         request.send(requestuestBody);
+            //     });
+            // }
         }
     }
 
@@ -196,12 +198,12 @@ class Timer {
         let persetButton = document.getElementById("loadfilmpreset" + name);
         persetButton.addEventListener('click', Timer.loadFilmPreset);
 
-        function setForm() {
+        function setForm(event) {
+            event.preventDefault();
             let min = document.getElementById("min" + name).value;
             let sec = document.getElementById("sec" + name).value;
             let ms = document.getElementById("ms" + name).value;
-            let notesinput = document.getElementById("notesinput" + name).value;
-            document.getElementById('notes'+name).innerHTML=notesinput;
+            document.getElementById('notes'+name).innerHTML=document.getElementById("notesinput" + name).value;
             function check(value){
                 let reg=/^[0-5][0-9]$/;
                 return reg.test(value);
@@ -249,9 +251,9 @@ class Timer {
                     if (ms < 10) ms = "0" + ms;
                     if (m == 0 && s == 0) {
                         ms = "00";
-                        let audio = new Audio(); // Создаём новый элемент Audio
-                        audio.src = '../../sounds/duck.wav'; // Указываем путь к звуку "клика"
-                        audio.autoplay = true; // Автоматически запускаем
+                        let audio = new Audio();
+                        audio.src = '../../sounds/duck.wav';
+                        audio.autoplay = true;
                     }
                     timer.innerHTML = m + ":" + s + ":" + ms;
 

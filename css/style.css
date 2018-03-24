@@ -1,8 +1,141 @@
+@font-face {
+    font-family: 'icon';
+    src: url('../img/icomoon.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
 body{
     background-color: white;
     color: darkgray;
+    padding: 10px;
 }
-input,label{
- display: block;
+input{
     color:red;
+}
+/*////////////login & registrations pages////////////*/
+#formWrapper, #registrationForm{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content:space-around;
+    width:250px;
+    margin-top: 15vh;
+}
+#loginForm button, #registrationForm button{
+    height: 30px;
+    border-radius: 5px;
+    box-shadow: none;
+    border: none;
+    margin: 10px 0 10px 0 ;
+}
+#loginForm label, #registrationForm label{
+    margin: 5px 0 5px 0;
+}
+#loginForm input, #registrationForm input{
+    width:100%;
+    height:25px;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+
+/*//////////////////////dialog window//////////////////////*/
+#dialogWin{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content:space-around;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width:200px;
+    border-radius: 5px;
+    text-align: center;
+}
+#dialogWin select{
+    width: 90%;
+    height:30px;
+    border-radius: 5px;
+    margin: 0 0 10px 0 ;
+}
+.dialogButtons {
+    height: 30px;
+    border-radius: 5px;
+    box-shadow: none;
+    border: none;
+    margin: 0 10px 10px 10px ;
+    width: 90%;
+}
+#dialogWin input{
+    width: 90%;
+    height:25px;
+    border-radius: 5px;
+    margin: 0 0 10px 0;
+    box-shadow: none;
+}
+#close, .delete{
+    background-color:white;
+    align-self:flex-end;
+    border-radius: 5px;
+    font-size:16pt;
+    box-shadow: none;
+    border: none;
+    outline:none;
+    width:25px;
+}
+/*//////////////////////////timers/////////////////////////////////////*/
+.icon{
+font-family:'icon';
+    font-size: 70px;
+    box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
+}
+.icon2{
+    font-family:'icon';
+    font-size: 50px;
+    box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
+}
+.icon3{
+    font-family:'icon';
+    font-size: 40px;
+    box-shadow: none;
+    border: none;
+    background: none;
+    outline: none;
+}
+h1{
+
+}
+#main{
+
+}
+#controlpanel{
+    display: flex;
+    flex-wrap: wrap;
+    border:2px solid black;
+    width: 250px;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+}
+#table{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-gap: 1rem;
+}
+.timers{
+    border: 2px solid black;
+    width:300px;
+border-radius:10px;
+}
+#rightpanel{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items:flex-end;
 }
