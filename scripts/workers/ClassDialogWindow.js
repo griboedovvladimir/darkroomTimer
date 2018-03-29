@@ -14,11 +14,26 @@ if(!document.getElementById('dialogWin')) {
     let saveButton = document.createElement('button');
     saveButton.id='saveButton';
     saveButton.classList.add('dialogButtons');
-    saveButton.innerHTML = 'Save';
+    saveButton.innerHTML = 'SAVE';
     let close = document.createElement('button');
     close.innerHTML = '&#215';
     close.id='close';
     win.appendChild(close);
+/////////////////////// delete table in develop process, realisation at 1.1 version ///////////////////////////////
+    // post('backend/save.php','token='+token).then(value=>{
+    //     let requestarr=JSON.parse(value).split('$');
+    //     requestarr.forEach(i=>{
+    //         let p=document.createElement('p');
+    //         let check=document.createElement('input');
+    //         check.setAttribute('value',JSON.parse(i).tableName);
+    //         check.setAttribute('type','checkbox');
+    //         p.appendChild(check);
+    //         p.innerHTML=p.innerHTML+JSON.parse(i).tableName;
+    //         win.appendChild(p);
+    //         console.log(p);
+    //     })
+    // });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     win.innerHTML = win.innerHTML + 'Save table as';
     form.appendChild(input);
     form.appendChild(saveButton);
@@ -70,12 +85,12 @@ if(!document.getElementById('dialogWin')) {
             win.appendChild(form);
             let button=document.createElement('button');
             button.id='clearLoad';
-            button.innerHTML="Clear current table and load";
+            button.innerHTML="CLEAR CURRENT TABLE AND LOAD";
             let button2=document.createElement('button');
             button.classList.add('dialogButtons');
             button2.classList.add('dialogButtons');
             button2.id='load';
-            button2.innerHTML="Add to current table";
+            button2.innerHTML="ADD TO CURRENT TABLE";
             win.appendChild(button);
             win.appendChild(button2);
             document.body.appendChild(win);
@@ -97,7 +112,7 @@ if(!document.getElementById('dialogWin')) {
                                     let timer = new Timer(i['wrapper'], i['name']);
                                     timer.addTimer();
                                     timer.setTimer(i['process'], i['value'], i['notes']);
-                                    timer.goTimer();
+                                    timer.goTimer( i['value']);
                                 })
                         }
                     });

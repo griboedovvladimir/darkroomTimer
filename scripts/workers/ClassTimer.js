@@ -8,13 +8,13 @@ class Timer {
     }
 
     addTimer() {
-        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><h4 id="process' + this.name + '">process</h4><span id="numbers' + this.name + '" style="color: #f00; font-size: 300%; font-weight: bold; font-family: Cabin Sketch, cursive;">00:00:00</span><p id="notes'+this.name+'"></p><br><button id = "pause' +
-            this.name + '">pause</button><button id = "start' + this.name +
-            '">start</button><button id = "set' + this.name + '">set</button><button id = "loadfilmpreset' + this.name + '" >load film develop time</button>' +
-            'Select process<select id="select' + this.name + '"><option>film developer</option><option>developer</option><option>fix bath</option><option>stop bath</option><option>washing</option><option>drying</option><option>stabilised</option><option>exposure</option></select><br>Other process<input type="text" id="other_process' + this.name +
+        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><div class="timerpanel"><h4 id="process' + this.name + '">process</h4><span id="numbers' + this.name + '" style="color: #f00; font-size: 300%; font-weight: bold; font-family: Cabin Sketch, cursive;">00:00:00</span><p id="notes'+this.name+'">Note</p><br><button id = "pause' +
+            this.name + '" class="icon2">&#xe904</button><button id = "start' + this.name +
+            '" class="icon2">&#xe906</button><button id = "set' + this.name + '" class="icon2">&#xe908;</button></div><div class="settimerpanel_hidden">' +
+            'Select process<select id="select' + this.name + '"><option>film developer</option><option>developer</option><option>fix bath</option><option>stop bath</option><option>washing</opstrokeoption>drying</option><option>stabilised</option><option>exposure</option></select><br>Other process<input type="text" id="other_process' + this.name +
             '" name="min" size="4" value=""/><br><input type="text" id="min' +
             this.name + '" name="min" size="1" value="00"/>:<input type="text" id="sec' + this.name + '" name="sec" size="1" value="00"/>:<input type="text" id="ms' +
-            this.name + '" name="ms" size="1" value="00"/><input type="text" id="notesinput' + this.name + '">';
+            this.name + '" name="ms" size="1" value="00"/><textarea class="timerinputs"  maxlength="100" id="notesinput' + this.name + '">Note</textarea><div><button id = "loadfilmpreset' + this.name + '" data-tooltip="Load film preset time" class="filmbutton">&#xe902</button></div></div><button class="storkUp" id="stork'+this.name+'">&#9660</button>';
 
         this.wrapper.appendChild(this.newTimer);
     }
@@ -71,7 +71,7 @@ class Timer {
                             message.innerHTML = 'Selected film and developer can\'t use together';
                         }
                         else {
-                            message.innerHTML = 'Selected parameters';
+                            message.innerHTML = 'Select parameters';
                             let arr = JSON.parse(value);
                             let dilution = document.createElement('select');
                             dilution.id = 'dilution' + name;
@@ -164,32 +164,61 @@ class Timer {
         }
     }
 
-    goTimer() {
+    goTimer(value) {
         let timer = document.getElementById("numbers" + this.name);
         let name = this.name;
         let set;
         let time = 0;
         document.getElementById("start" + name).addEventListener('click', goStart);
         document.getElementById("pause" + name).addEventListener('click', goPause);
+        document.getElementById("stork" + name).addEventListener('click', storkAction);
         let del = document.getElementById("delete" + name);
         del.addEventListener('click', deleteTimer);
 
         function deleteTimer() {
             document.getElementById("start" + name).removeEventListener('click', goStart);
             document.getElementById("pause" + name).removeEventListener('click', goPause);
+            document.getElementById("set" + name).removeEventListener('click', setForm);
+            document.getElementById("delete" + name).removeEventListener('click',deleteTimer);
+            document.getElementById("stork" + name).removeEventListener('click',storkAction);
             document.getElementById("timer" + name).remove();
             cancelAnimationFrame(set);
         }
-
+        function storkAction() {
+            let inner=document.getElementById("stork" + name).classList[0];
+            if (inner==='storkUp'){
+                document.getElementById("stork" + name).innerHTML='&#9650';
+                document.getElementById("stork" + name).classList.remove('storkUp');
+                document.getElementById("stork" + name).classList.toggle("storkDown");
+                let el=document.getElementById('timer'+name).querySelectorAll('.settimerpanel_hidden')[0];
+                el.classList.remove('settimerpanel_hidden');
+                el.classList.add('settimerpanel');
+            }
+            else{
+                document.getElementById("stork" + name).innerHTML='&#9660';
+                document.getElementById("stork" + name).classList.remove('storkDown');
+                document.getElementById("stork" + name).classList.toggle("storkUp");
+                let el=document.getElementById('timer'+name).querySelectorAll('.settimerpanel')[0];
+                el.classList.remove('settimerpanel');
+                el.classList.add('settimerpanel_hidden');
+            }
+        }
         function goPause() {
             cancelAnimationFrame(set);
         }
 
         function goStart() {
+            let min = document.getElementById("min" + name).value||valueArr[0];
+            let sec = document.getElementById("sec" + name).value||valueArr[1];
+            let ms = document.getElementById("ms" + name).value||valueArr[2];
+            if(value) {
+                let valueArr = value.split(':');
+                 min = valueArr[0];
+                 sec = valueArr[1];
+                 ms = valueArr[2];
+            }
             cancelAnimationFrame(set);
-            let min = document.getElementById("min" + name).value;
-            let sec = document.getElementById("sec" + name).value;
-            let ms = document.getElementById("ms" + name).value;
+
             if(!(min==='00'&& sec==='00'&& ms==='00')) startTimer();
         }
 
@@ -200,6 +229,7 @@ class Timer {
 
         function setForm(event) {
             event.preventDefault();
+            document.getElementById("timer" + name).classList.remove('finished');
             let min = document.getElementById("min" + name).value;
             let sec = document.getElementById("sec" + name).value;
             let ms = document.getElementById("ms" + name).value;
@@ -254,6 +284,7 @@ class Timer {
                         let audio = new Audio();
                         audio.src = '../../sounds/duck.wav';
                         audio.autoplay = true;
+                        timer.parentNode.parentNode.classList.add('finished')
                     }
                     timer.innerHTML = m + ":" + s + ":" + ms;
 

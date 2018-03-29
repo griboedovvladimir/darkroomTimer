@@ -3,7 +3,7 @@ class Registration{
 
     }
     static  goRegistration(wrapper){
-        if (localStorage.getItem('darkroomtimer')) {
+        if (sessionStorage.getItem('darkroomtimer')||localStorage.getItem('darkroomtimer')) {
             document.location.href = "#main";
         }
         else {

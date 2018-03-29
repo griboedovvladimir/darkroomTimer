@@ -6,24 +6,34 @@
 </head>
 <body>
 <div id="main">
-    <h1>DARKROOM TIMER TABLE</h1>
-    <div id="time"></div>
-    <button id="logout" class="icon">
-        &#xe905
-    </button>
+    <div id="mode">
+        <input class="checkbox" id="checkbox1" type="checkbox"/>
+        <label for="checkbox1" class="checkbox-label">
+            <span class="on">&#xe90c</span>
+            <span class="off">&#xe90e</span>
+        </label>
+    </div>
+    <h1>DARKROOM DUCKTIMER TABLE</h1>
+    <div class="row1">
+        <div id="clock">
+            <span id="timeicon" class="icon2"> &#xe90d</span>
+            <div id="time"></div>
+        </div>
+        <button id="logout" class="icon">&#xe905</button>
+    </div>
     <div id="controlpanel">
-        <button id="addTimer" class="controlpanel icon2">&#xe90a</button>
-        <button id="loadTable" class="controlpanel icon2">&#xe903</button>
-        <button id="saveTable" class="controlpanel icon3">&#xe907</button>
-        <button id="clearTable" class="controlpanel icon2">&#xe900</button>
+        <button id="addTimer" data-tooltip="Add timer" class="controlpanel icon2">&#xe90a</button>
+        <button id="loadTable" data-tooltip="Load table" class="controlpanel icon2">&#xe903</button>
+        <button id="saveTable" data-tooltip="Save table" class="controlpanel icon3">&#xe907</button>
+        <button id="clearTable" data-tooltip="Clear table" class="controlpanel icon2">&#xe900</button>
     </div>
-    <div id="rightpanel">
-        <button class="rightpanel icon2">&#xe90b</button>
-        <button class="rightpanel icon2">&#xe909</button>
-        <button class="rightpanel icon2">&#xe901</button>
-    </div>
-    <div id="table">
-
+    <div class="row2">
+        <div id="rightpanel">
+            <button id="volumeMixer" data-tooltip="Volume mixer" class="rightpanel icon2">&#xe90b</button>
+            <button id="tempConverter" data-tooltip="Time/temp converter" class="rightpanel icon2">&#xe909</button>
+            <button id="PushProcessing" data-tooltip="Push processing" class="rightpanel icon2">&#xe901</button>
+        </div>
+        <div id="table"></div>
     </div>
 </div>
 </body>

@@ -1,0 +1,22 @@
+
+
+<form id="convertForm" method="post" action="https://www.digitaltruth.com/cgi-bin/develop.cgi?nominal_temp=20&amp;nominal_time=10&amp;actual_temp=20&amp;units=C&amp;agitate=No&amp;Submit=Submit" enctype="multipart/form-data">
+    <p><input type="text" name="nominal_temp" value="20" maxlength="6" size="6"/>  Recommended Temperature (degrees)</p>
+    <p><input type="text" name="nominal_time" value="10" maxlength="6" size="6"/>  Recommended Time (minutes)</p>
+    <p><input type="text" name="actual_temp" value="20" maxlength="6" size="6"/>  Modified Temperature (the actual temperature you want to use)</p>
+    <p>The temperature units <select name="units" >
+    <option selected="selected" value="C">C</option>
+    <option value="F">F</option>
+</select></p><p>Will you be agitating constantly? <select name="agitate" >
+    <option selected="selected" value="No">No</option>
+    <option value="Yes">Yes</option>
+</select></p><p style="text-align:left;padding-top:10px;padding-bottom:10px;"><input id="buttonSubmit" type="Submit" name="Submit" value="Submit" /></p></form><h3>Result:</h3><p id="convertResult">Modified development time = 10 minutes and 0 seconds.</p><br><br>
+<p>This calculator takes a standard developing time and adjusts it for temperature. To use it, enter the recommended developing time and temp from the Massive Dev Chart into the relevant fields, along with the actual temperature you want to use. Be sure that the units (Celsius or Fahrenheit) are set correctly, then press the Submit button and the modified time will be displayed.</p>
+<p>You can also use this calculator to determine the time change if you prefer to use continuous agitation where a time normally relies on intermittent agitation. This is particularly useful if you want to convert standard times for use with a motorised processor (eg. Jobo). Times are automatically reduced by 15%.</p>
+<p><b>PLEASE NOTE:</b> These conversions are approximate and are based on standard black and white film in normal developer. Films and developers vary widely so you should always test any time/temp combination prior to using it on important work. Warnings will be displayed if the difference between the original and actual temperature is large, or the final developing time is short.</p>
+
+
+<h2 style="margin-top:30px;">Time/Temp Conversion Chart</h2>
+<h5>Conversion chart instructions</h5>
+<p> Locate the point on the grid where the recommended time and temp intersect. From that point follow the diagonal line up or down to the desired temperature and then read the new time from the bottom row. This chart is based on the Ilford Time/Temp Chart, which can be downloaded in pdf or text format directly from <a href="http://www.ilfordphoto.com">Ilford</a>.</p>
+<p><img src="https://www.digitaltruth.com/gfx/timetempgraph.png" alt="" width="400" height="400" style="border:2px solid #ccc"></p>

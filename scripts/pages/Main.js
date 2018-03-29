@@ -4,9 +4,10 @@ class Main{
     }
 static goMain(wrapper){
 
-    if (!localStorage.getItem('darkroomtimer')) {
+    if (!sessionStorage.getItem('darkroomtimer')&&!localStorage.getItem('darkroomtimer')) {
         document.location.href = "#login";
     }
+
     if (document.querySelector('link[rel="import"]')) {
         document.querySelector('link[rel="import"]').remove()
     }
@@ -29,10 +30,11 @@ static goMain(wrapper){
 
         document.getElementById('logout').addEventListener('click',()=>{
         localStorage.removeItem('darkroomtimer');
+        sessionStorage.removeItem('darkroomtimer');
             document.location.href = "";
         },{once:true});
         let control=document.getElementById('controlpanel');
-        control.addEventListener('click',(e)=>{
+        control.addEventListener('click',e=>{
             if (e.target.id==='addTimer') {
                 let timer = new Timer('table', Date.now());
                 timer.addTimer();
@@ -58,16 +60,26 @@ for(let i=0;i<allTimers.length;i++){
 }
 
                 userData.set('name',data);
-DialogWindow.saveWindow(e, userData,localStorage.getItem('darkroomtimer'));
+                let token=sessionStorage.getItem('darkroomtimer')?sessionStorage.getItem('darkroomtimer'):localStorage.getItem('darkroomtimer')
+DialogWindow.saveWindow(e, userData,token);
 
             }
             if(e.target.id==='loadTable'){
                 let wrap=document.getElementById('table');
-             DialogWindow.loadWindow(e,wrap,localStorage.getItem('darkroomtimer'));
+                let token=sessionStorage.getItem('darkroomtimer')?sessionStorage.getItem('darkroomtimer'):localStorage.getItem('darkroomtimer')
+             DialogWindow.loadWindow(e,wrap,token);
 
             }
         });
 
+let rightpanel=document.getElementById('rightpanel');
+rightpanel.addEventListener('click',e=>{
+    if(e.target.id!=='rightpanel') {
+        new ContentWindow(e.target.id);
+    }
+
+
+})
 
     });
     document.head.appendChild(link);

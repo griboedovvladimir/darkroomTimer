@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>DARKROOM timer</title>
     <script defer src="sw.js"></script>
+    <script defer src="scripts/workers/tooltip.js"></script>
     <script defer src="scripts/workers/ClassDialogWindow.js"></script>
     <script defer src="scripts/workers/ClassTimer.js"></script>
+    <script defer src="scripts/workers/ClassContentWindow.js"></script>
     <script defer src="scripts/workers/ClassLoginCheck.js"></script>
     <script defer src="scripts/pages/Login.js"></script>
     <script defer src="scripts/pages/Main.js"></script>
@@ -15,6 +17,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div id="effectWrapper">
 <div id="wrapper"></div>
+<div id="footer">
+<hr>
+<button id="about">About</button>
+    <p>© Vladimir Griboedov'18</p>
+</div>
+</div>
 </body>
 </html>

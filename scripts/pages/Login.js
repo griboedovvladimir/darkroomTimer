@@ -3,7 +3,7 @@ class Login{
 
     }
     static  goLogin(wrapper) {
-        if (localStorage.getItem('darkroomtimer')) {
+        if (localStorage.getItem('darkroomtimer')||sessionStorage.getItem('darkroomtimer')) {
             document.location.href = "#main";
         }
         else {
@@ -40,7 +40,10 @@ class Login{
                         post('backend/login.php', 'email=' + email + '&password=' + pass).then(value => {
                             let form = document.getElementById('loginForm');
                             if (value !== 'false') {
-                                localStorage.setItem('darkroomtimer', value);
+                                if(document.getElementById('rememberme').checked) {
+                                    localStorage.setItem('darkroomtimer', value);
+                                }
+                                else sessionStorage.setItem('darkroomtimer', value);
                                 wrapper.innerHTML = '';
                                 document.location.href = "#main";
                             }

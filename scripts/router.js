@@ -10,10 +10,16 @@ let placeholder=document.querySelector('#wrapper');
     }, false);
 
 function rout() {
+    document.getElementById('about').addEventListener('click',e=>{
+        new ContentWindow(e.target.id);
+    });
     placeholder.innerHTML='';
     switch (location.hash) {
         case '':
             if (localStorage.getItem('darkroomtimer')) {
+            document.location.href = "#main";
+        }
+            else if (sessionStorage.getItem('darkroomtimer')) {
                 document.location.href = "#main";
             }
             else{
