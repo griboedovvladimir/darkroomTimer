@@ -1,20 +1,24 @@
 class Timer {
-    constructor(wrapper, name) {
+    constructor(wrapper, name,position) {
         this.wrapper = document.getElementById(wrapper);
         this.name = name;
         this.newTimer = document.createElement('div');
         this.newTimer.id = "timer" + this.name;
         this.newTimer.classList='timers';
+        this.position=position;
     }
 
     addTimer() {
-        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><div class="timerpanel"><h4 id="process' + this.name + '">process</h4><span id="numbers' + this.name + '" style="color: #f00; font-size: 300%; font-weight: bold; font-family: Cabin Sketch, cursive;">00:00:00</span><p id="notes'+this.name+'">Note</p><br><button id = "pause' +
+        if(this.position!==undefined){
+            this.newTimer.style.cssText='position:'+this.position[2]+';top:'+(this.position[0]-10)+'px;left:'+this.position[1]+'px';
+        }
+        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><h4 id="process' + this.name + '">process</h4><div class="timerpanel"><span id="numbers' + this.name + '" >00:00:00</span><p id="notes'+this.name+'">Note: </p><br><button id = "pause' +
             this.name + '" class="icon2">&#xe904</button><button id = "start' + this.name +
             '" class="icon2">&#xe906</button><button id = "set' + this.name + '" class="icon2">&#xe908;</button></div><div class="settimerpanel_hidden">' +
             'Select process<select id="select' + this.name + '"><option>film developer</option><option>developer</option><option>fix bath</option><option>stop bath</option><option>washing</opstrokeoption>drying</option><option>stabilised</option><option>exposure</option></select><br>Other process<input type="text" id="other_process' + this.name +
             '" name="min" size="4" value=""/><br><input type="text" id="min' +
             this.name + '" name="min" size="1" value="00"/>:<input type="text" id="sec' + this.name + '" name="sec" size="1" value="00"/>:<input type="text" id="ms' +
-            this.name + '" name="ms" size="1" value="00"/><textarea class="timerinputs"  maxlength="100" id="notesinput' + this.name + '">Note</textarea><div><button id = "loadfilmpreset' + this.name + '" data-tooltip="Load film preset time" class="filmbutton">&#xe902</button></div></div><button class="storkUp" id="stork'+this.name+'">&#9660</button>';
+            this.name + '" name="ms" size="1" value="00"/><textarea class="timerinputs"  maxlength="100" placeholder="Note" id="notesinput' + this.name + '"></textarea><div><button id = "loadfilmpreset' + this.name + '" data-tooltip="Load film preset time" class="filmbutton">&#xe902</button></div></div><button class="storkUp" id="stork'+this.name+'">&#9660</button>';
 
         this.wrapper.appendChild(this.newTimer);
     }
@@ -144,23 +148,6 @@ class Timer {
                 }
             });
 
-            // function post(url, requestuestBody) {
-            //     return new Promise(function (succeed, fail) {
-            //         let request = new XMLHttpRequest();
-            //         request.open("POST", url, true);
-            //         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
-            //         request.addEventListener("load", function () {
-            //             if (request.status < 400)
-            //                 succeed(this.responseText);
-            //             else
-            //                 fail(new Error("Request failed: " + request.statusText));
-            //         });
-            //         request.addEventListener("error", function () {
-            //             fail(new Error("Network error"));
-            //         });
-            //         request.send(requestuestBody);
-            //     });
-            // }
         }
     }
 
@@ -172,6 +159,8 @@ class Timer {
         document.getElementById("start" + name).addEventListener('click', goStart);
         document.getElementById("pause" + name).addEventListener('click', goPause);
         document.getElementById("stork" + name).addEventListener('click', storkAction);
+        document.getElementById("process" + name).addEventListener('mousedown', dragable);
+
         let del = document.getElementById("delete" + name);
         del.addEventListener('click', deleteTimer);
 
@@ -183,6 +172,50 @@ class Timer {
             document.getElementById("stork" + name).removeEventListener('click',storkAction);
             document.getElementById("timer" + name).remove();
             cancelAnimationFrame(set);
+        }
+        function dragable(e){
+            if(e.target.id==='process'+name) {
+                let startX = document.getElementById("timer" + name).offsetLeft;
+                let startY = document.getElementById("timer" + name).offsetTop - 10;
+                document.getElementById("timer" + name).style.cssText = document.getElementById("timer" + name).style.cssText + 'position:absolute;left:' + startX + 'px;top:' + startY + 'px;';
+                dragElement(document.getElementById("timer" + name));
+                function dragElement(elmnt) {
+                    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                    if (document.getElementById(elmnt.id)) {
+                        document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+                    } else {
+                        elmnt.onmousedown = dragMouseDown;
+                    }
+
+                    function dragMouseDown(e) {
+                        if (e.target.tagName === 'H4') {
+                            e = e || window.event;
+                            pos3 = e.clientX;
+                            pos4 = e.clientY;
+                            document.onmouseup = closeDragElement;
+                            document.onmousemove = elementDrag;
+                        }
+                    }
+
+                    function elementDrag(e) {
+                        e = e || window.event;
+                        pos1 = pos3 - e.clientX;
+                        pos2 = pos4 - e.clientY;
+                        pos3 = e.clientX;
+                        pos4 = e.clientY;
+                        elmnt.style.top = (e.clientY - 15) + "px";
+                        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                    }
+
+                    function closeDragElement() {
+                        document.onmouseup = null;
+                        document.onmousemove = null;
+                    }
+
+                }
+            }
+
+
         }
         function storkAction() {
             let inner=document.getElementById("stork" + name).classList[0];
@@ -233,7 +266,7 @@ class Timer {
             let min = document.getElementById("min" + name).value;
             let sec = document.getElementById("sec" + name).value;
             let ms = document.getElementById("ms" + name).value;
-            document.getElementById('notes'+name).innerHTML=document.getElementById("notesinput" + name).value;
+            document.getElementById('notes'+name).innerHTML='Note: '+document.getElementById("notesinput" + name).value;
             function check(value){
                 let reg=/^[0-5][0-9]$/;
                 return reg.test(value);
@@ -248,7 +281,9 @@ class Timer {
                 let process = document.getElementById("process" + name);
                 let select = document.getElementById("select" + name).value;
                 let other_process = document.getElementById("other_process" + name).value;
-                process.innerHTML = other_process ? other_process : select;
+                if(other_process.length<20) {
+                    process.innerHTML = other_process ? other_process : select;
+                }
             }
             else{
                 if(document.getElementById("errorselect" + name))document.getElementById("errorselect" + name).remove();

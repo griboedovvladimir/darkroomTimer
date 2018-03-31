@@ -19,7 +19,7 @@ if(!document.getElementById('dialogWin')) {
     close.innerHTML = '&#215';
     close.id='close';
     win.appendChild(close);
-/////////////////////// delete table in develop process, realisation at 1.1 version ///////////////////////////////
+/////////////////////// delete table from DB in develop process, realisation at 1.1 version ///////////////////////////////
     // post('backend/save.php','token='+token).then(value=>{
     //     let requestarr=JSON.parse(value).split('$');
     //     requestarr.forEach(i=>{
@@ -41,19 +41,25 @@ if(!document.getElementById('dialogWin')) {
     document.body.appendChild(win);
     window.addEventListener('click',eventer);
     function eventer(event) {
+        function check(value){
+            let reg=/^[A-zА-я0-9]([A-zА-я0-9][ ]?){1,20}$/;
+            return reg.test(value);
+        }
         event.preventDefault();
         if(event.target.id==='close'||(event.target.id!=='dialogWin'&&event.target.parentNode.id!=='dialogWin'&&event.target.id!=='saveTable'&&event.target.parentNode.tagName!=='FORM')){
             window.removeEventListener('click',eventer);
             document.getElementById('dialogWin').remove();
         }
-        if(event.target.id==='saveButton'&&input.value!==''){
-            let name=input.value;
-            let table= encodeURIComponent(JSON.stringify({tableName:name,timers:map.get('name')}));
-            token= encodeURIComponent(token);
-           post('backend/save.php','token='+token+'&table='+table).then(value=>{
-           });
-            window.removeEventListener('click',eventer);
+        if(event.target.id==='saveButton'&&input.value!=='') {
+            if (check(input.value)) {
+            let name = input.value.trim();
+            let table = encodeURIComponent(JSON.stringify({tableName: name, timers: map.get('name')}));
+            token = encodeURIComponent(token);
+            post('backend/save.php', 'token=' + token + '&table=' + table).then(value => {
+            });
+            window.removeEventListener('click', eventer);
             document.getElementById('dialogWin').remove();
+        }
         }
 
     }
@@ -72,14 +78,16 @@ if(!document.getElementById('dialogWin')) {
             let select=document.createElement('select');
             let data=[];
             post('backend/save.php','token='+token).then(value=>{
-         let requestarr=JSON.parse(value).split('$');
-         requestarr.forEach(i=>{
-             let option=document.createElement('option');
-             option.innerHTML=JSON.parse(i).tableName;
-             select.appendChild(option);
-             data.push(JSON.parse(i));
-         })
+                if(value!=='false') {
+                    let requestarr = JSON.parse(value).split('$');
+                    requestarr.forEach(i => {
+                        let option = document.createElement('option');
+                        option.innerHTML = JSON.parse(i).tableName;
+                        select.appendChild(option);
+                        data.push(JSON.parse(i));
 
+                    })
+                }
             });
             form.appendChild(select);
             win.appendChild(form);
@@ -109,7 +117,7 @@ if(!document.getElementById('dialogWin')) {
                     data.forEach(i=>{
                         if(i.tableName===select.value){
                             i.timers.forEach(i => {
-                                    let timer = new Timer(i['wrapper'], i['name']);
+                                    let timer = new Timer(i['wrapper'], i['name'],i['position']);
                                     timer.addTimer();
                                     timer.setTimer(i['process'], i['value'], i['notes']);
                                     timer.goTimer( i['value']);

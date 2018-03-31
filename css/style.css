@@ -6,6 +6,12 @@
 }
 
 @font-face {
+    font-family: 'ProximaNova-Regular';
+    src: url('../fonts/ProximaNova-Semibold.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
     font-family: "ProximaNova-Bold";
     src: url("../fonts/ProximaNova-Bold.eot");
     src: url("../fonts/ProximaNova-Bold.eot?#iefix") format("embedded-opentype"),
@@ -14,48 +20,78 @@
     font-style: normal;
     font-weight: normal;
 }
-#effectWrapper{
+a{
+    color:gray;
+}
+#effectWrapper {
     height: 100%;
     width: 100%;
 }
+
 body {
-    background-color: white;
-    color: darkgray;
     padding: 10px;
     height: 100%;
 }
 
-#footer{
+#footer {
     height: 30px;
     text-align: center;
 }
-#footer p{
-    right: 5px;
+
+#footer p {
+    right: 10px;
     position: absolute;
-    text-align:right;
+    text-align: right;
     display: inline-block;
     font-family: 'ProximaNova-Bold';
     font-size: 8pt;
 }
-input {
-    color: red;
+
+#footer button {
+    font-family: 'ProximaNova-Bold';
+    border: none;
+    background: transparent;
+    outline: none;
 }
+
+#footer hr {
+    background-color: black;
+    border: none;
+    height: 1px;
+}
+
 
 #wrapper {
     font-family: 'ProximaNova-Bold';
     font-size: 10pt;
     min-height: calc(100vh - 70px);
+    background: white url(../img/background.svg) no-repeat;
+    background-position: 50% 60%;
+    background-size: 28%;
 }
+
+@media screen and (max-width: 900px) {
+
+    #wrapper {
+        font-family: 'ProximaNova-Bold';
+        font-size: 10pt;
+        min-height: calc(100vh - 70px);
+        background: none;
+    }
+
+}
+
 .tooltip {
     position: fixed;
     padding: 3px 8px;
-border-radius: 4px;
+    border-radius: 4px;
     border: 1px solid black;
     text-align: center;
-    font:12px/1.3 'ProximaNova-Bold', sans-serif;
+    font: 12px/1.3 'ProximaNova-Bold', sans-serif;
     color: #333;
     background: #fff;
 }
+
 /*////////////login & registrations pages////////////*/
 #formWrapper, #registrationForm {
     display: flex;
@@ -91,6 +127,7 @@ border-radius: 4px;
     outline: none;
     width: 95%;
 }
+
 #loginForm input {
     height: 25px;
     border-radius: 5px;
@@ -100,13 +137,15 @@ border-radius: 4px;
     outline: none;
     width: 95%;
 }
-#rememberme{
+
+#rememberme {
     width: 20px;
     background-color: transparent;
     border: 1px solid black;
     display: none;
 }
-.chekboxRemember{
+
+.chekboxRemember {
     display: flex;
 
 }
@@ -119,11 +158,13 @@ border-radius: 4px;
     border-radius: 3px;
     margin-right: 5px;
 }
+
 .checkbox-custom,
 .chekboxRemember label {
     display: inline-block;
     vertical-align: middle;
 }
+
 .checkbox:checked + .checkbox-custom::before {
     content: "";
     display: block;
@@ -194,6 +235,7 @@ h1 {
     #timeicon {
         font-size: 20px;
     }
+
 }
 
 #controlpanel {
@@ -208,6 +250,7 @@ h1 {
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 1;
+    background-color: white;
 }
 
 #table {
@@ -219,6 +262,43 @@ h1 {
     grid-column-end: 1;
     grid-row-start: 1;
     grid-row-end: 1;
+    align-items: start;
+}
+@media screen and (max-width: 1000px) {
+    #table {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-gap: 1rem;
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+}
+@media screen and (max-width: 800px) {
+    #table {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-gap: 1rem;
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
+}
+@media screen and (max-width: 450px) {
+    #table {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-gap: 1rem;
+        grid-column-start: 1;
+        grid-column-end: 1;
+        grid-row-start: 1;
+        grid-row-end: 1;
+    }
 }
 
 #rightpanel {
@@ -233,6 +313,7 @@ h1 {
     justify-content: space-around;
     justify-self: end;
     margin: 10px 0 0 0;
+    background-color: white;
 }
 
 /*//////////////////////dialog window//////////////////////*/
@@ -246,7 +327,7 @@ h1 {
     width: 200px;
     border-radius: 5px;
     text-align: center;
-    font-family: ProximaNova-Bold;
+    font-family: 'ProximaNova-Bold';
 }
 
 #dialogWin select {
@@ -271,18 +352,23 @@ h1 {
     outline: none;
 }
 
+#load, #clearLoad {
+    font-size: 8pt;
+    letter-spacing: 0;
+}
+
 #dialogWin input {
     width: 90%;
     height: 25px;
     border-radius: 5px;
     margin: 0 0 10px 0;
     box-shadow: none;
-    border: 2px solid black;
+    border: 1px solid black;
     padding: 3px;
     outline: none;
 }
 
-#close, .delete {
+#close {
     background-color: white;
     align-self: flex-end;
     border-radius: 5px;
@@ -292,8 +378,9 @@ h1 {
     outline: none;
     width: 25px;
 }
+
 /*////////////////////////////Content window//////////////////////////////*/
-#winContent{
+#winContent {
     position: absolute;
     width: 300px;
     height: 300px;
@@ -309,18 +396,55 @@ h1 {
 
 /*//////////////////////////timers/////////////////////////////////////*/
 .timers {
+    flex-direction:column;
     border: 2px solid black;
-    width: 300px;
+    width: 250px;
     border-radius: 10px;
     margin: 10px 0 0 0;
+    background-color: white;
+
 }
-.finished{
+.timers h4{
+    text-align: center;
+    height: 20px;
+    padding: 5px;
+    font-size: 12pt;
+}
+.finished {
     box-shadow: 0 0 20px rgb(255, 0, 0);
     border-color: red;
 }
-.timers textarea{
+.delete{
+    float: right;
+    background-color: white;
+    align-self:flex-end;
+    background-color: transparent;
+    right:0;
+    border-radius: 5px;
+    font-size: 16pt;
+    box-shadow: none;
+    border: none;
+    outline: none;
+    width: 25px;
+}
+.timerpanel {
+text-align: center;
+}
+.timerpanel p{
+    text-align: left;
+}
+.timers span{
+    font-size: 410%;
+    font-family: 'ProximaNova-Regular';
+    text-align: left;
+    margin: 0;
+    display: block;
     width: 100%;
 }
+.timers textarea {
+    width: 100%;
+}
+
 .icon {
     font-family: 'icon';
     font-size: 70px;
@@ -383,10 +507,10 @@ h1 {
     border: none;
     background-color: transparent;
     width: 100%;
-    height: 30px;
     outline: none;
     font-size: 15px;
     transition: font-size 0.2s ease-out 0.2s;
+    height: 30px;
 }
 
 .storkUp:hover {
@@ -410,6 +534,7 @@ h1 {
     font-size: 22px;
     transition: font-size 0.2s ease-out 0.2s;
 }
+
 /*//////////////////////////////////////////////////////////*/
 .checkbox-label {
     display: block;
@@ -422,19 +547,20 @@ h1 {
     box-shadow: 0 0 0 2px black;
     font-family: 'icon';
 }
+
 .checkbox-label .on {
     display: block;
     position: absolute;
     z-index: 0;
     left: 0;
     opacity: 1;
-    /*min-width: 300px;*/
     line-height: 30px;
     opacity: 0;
     color: red;
     font-family: 'icon';
     font-size: 40px;
 }
+
 .checkbox-label .off {
     display: block;
     position: absolute;
@@ -442,12 +568,12 @@ h1 {
     right: 70px;
     text-align: right;
     opacity: 1;
-    /*min-width: 300px;*/
     line-height: 30px;
     opacity: 1;
     color: black;
     font-size: 40px;
 }
+
 .checkbox-label:before {
     content: '';
     display: block;
@@ -465,21 +591,25 @@ h1 {
 
 .checkbox {
     position: absolute;
-    left:-5000px
+    left: -5000px
 }
+
 .checkbox:checked + .checkbox-label {
     background: red;
     box-shadow: 0 0 0 2px red;
     font-family: 'icon';
 }
+
 .checkbox:checked + .checkbox-label .on {
     left: 70px;
     opacity: 1;
 }
+
 .checkbox:checked + .checkbox-label .off {
     right: 0px;
     opacity: 0;
 }
+
 .checkbox:checked + .checkbox-label:before {
     left: 30px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px red;

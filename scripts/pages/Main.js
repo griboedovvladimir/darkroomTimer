@@ -52,21 +52,22 @@ for(let i=0;i<allTimers.length;i++){
     let value = allTimers[i].querySelectorAll('span')[0].innerHTML;
     let process = allTimers[i].querySelectorAll('h4')[0].innerHTML;
     let name=allTimers[i].querySelectorAll('span')[0].id.substring(7);
+     let absolute=allTimers[i].style.position;
     let wrapper='table';
-    let position=[allTimers[i].getBoundingClientRect().top,allTimers[i].getBoundingClientRect().left];
+    let position=[allTimers[i].getBoundingClientRect().top,allTimers[i].getBoundingClientRect().left,absolute];
     let notes=allTimers[i].querySelectorAll('#notes'+name)[0].innerHTML;
     let timer={name:name,value:value,process:process,notes:notes,wrapper:wrapper,position:position};
     data.push(timer)
 }
 
                 userData.set('name',data);
-                let token=sessionStorage.getItem('darkroomtimer')?sessionStorage.getItem('darkroomtimer'):localStorage.getItem('darkroomtimer')
+                let token=sessionStorage.getItem('darkroomtimer')?sessionStorage.getItem('darkroomtimer'):localStorage.getItem('darkroomtimer');
 DialogWindow.saveWindow(e, userData,token);
 
             }
             if(e.target.id==='loadTable'){
                 let wrap=document.getElementById('table');
-                let token=sessionStorage.getItem('darkroomtimer')?sessionStorage.getItem('darkroomtimer'):localStorage.getItem('darkroomtimer')
+                let token=sessionStorage.getItem('darkroomtimer')?sessionStorage.getItem('darkroomtimer'):localStorage.getItem('darkroomtimer');
              DialogWindow.loadWindow(e,wrap,token);
 
             }
