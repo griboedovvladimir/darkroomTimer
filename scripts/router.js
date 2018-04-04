@@ -40,3 +40,7 @@ function rout() {
 }
 
 })();
+window.is_touch_device=function () {
+    return 'ontouchstart' in window
+        || 'onmsgesturechange' in window;
+};

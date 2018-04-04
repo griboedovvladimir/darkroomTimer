@@ -9,16 +9,16 @@ class Timer {
     }
 
     addTimer() {
-        if(this.position!==undefined){
+        if(this.position!==undefined && !is_touch_device){
             this.newTimer.style.cssText='position:'+this.position[2]+';top:'+(this.position[0]-10)+'px;left:'+this.position[1]+'px';
         }
-        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><h4 id="process' + this.name + '">process</h4><div class="timerpanel"><span id="numbers' + this.name + '" >00:00:00</span><p id="notes'+this.name+'">Note: </p><br><button id = "pause' +
+        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><h4 id="process' + this.name + '">defult process</h4><div class="timerpanel"><span id="numbers' + this.name + '" >00:00:00</span><p id="notes'+this.name+'">Note: </p><button id = "pause' +
             this.name + '" class="icon2">&#xe904</button><button id = "start' + this.name +
             '" class="icon2">&#xe906</button><button id = "set' + this.name + '" class="icon2">&#xe908;</button></div><div class="settimerpanel_hidden">' +
-            'Select process<select id="select' + this.name + '"><option>film developer</option><option>developer</option><option>fix bath</option><option>stop bath</option><option>washing</opstrokeoption>drying</option><option>stabilised</option><option>exposure</option></select><br>Other process<input type="text" id="other_process' + this.name +
-            '" name="min" size="4" value=""/><br><input type="text" id="min' +
+            'Select process<select id="select' + this.name + '"><option>film developer</option><option>developer</option><option>fix bath</option><option>stop bath</option><option>washing</option><option>drying</option><option>stabilised</option><option>exposure</option></select><br>Other process<input type="text" id="other_process' + this.name +
+            '" name="process" size="4" value=""/><div><input type="text" id="min' +
             this.name + '" name="min" size="1" value="00"/>:<input type="text" id="sec' + this.name + '" name="sec" size="1" value="00"/>:<input type="text" id="ms' +
-            this.name + '" name="ms" size="1" value="00"/><textarea class="timerinputs"  maxlength="100" placeholder="Note" id="notesinput' + this.name + '"></textarea><div><button id = "loadfilmpreset' + this.name + '" data-tooltip="Load film preset time" class="filmbutton">&#xe902</button></div></div><button class="storkUp" id="stork'+this.name+'">&#9660</button>';
+            this.name + '" name="ms" size="1" value="00"/></div><textarea class="timerinputs"  maxlength="100" placeholder="Note" id="notesinput' + this.name + '"></textarea><div><button id = "loadfilmpreset' + this.name + '" data-tooltip="Load film preset time" class="filmbutton">&#xe902</button></div></div><button class="storkUp" id="stork'+this.name+'">&#9660</button>';
 
         this.wrapper.appendChild(this.newTimer);
     }
@@ -31,7 +31,7 @@ class Timer {
 
     static loadFilmPreset(e) {
         if (!document.getElementById('filmform' + e.target.id.substring(14))) {
-            post('backend/filmform.php', '').then(value => {
+            post('backend/filmform.php', '',e.target).then(value => {
                 let arr = JSON.parse(value);
                 let name = e.target.id.substring(14);
                 let form = document.createElement('form');
@@ -69,13 +69,13 @@ class Timer {
                         type = document.getElementById('filmtype' + name).value,
                         dev = document.getElementById('dev' + name).value;
 
-                    post('backend/filmform2.php', 'film=' + encodeURIComponent(film) + '&dev=' + encodeURIComponent(dev) + '&type=' + type).then(value => {
+                    post('backend/filmform2.php', 'film=' + encodeURIComponent(film) + '&dev=' + encodeURIComponent(dev) + '&type=' + type,event.target).then(value => {
                         div.appendChild(message);
                         if (JSON.parse(value) === "false") {
                             message.innerHTML = 'Selected film and developer can\'t use together';
                         }
                         else {
-                            message.innerHTML = 'Select parameters';
+                            message.innerHTML = 'Select parameters<p><span>ISO/ASA</span><span>diluton</span><span>temperature</span></p>';
                             let arr = JSON.parse(value);
                             let dilution = document.createElement('select');
                             dilution.id = 'dilution' + name;
@@ -116,7 +116,7 @@ class Timer {
                                     ASAISO_req = encodeURIComponent(ASAISO.value),
                                     temp_req = encodeURIComponent(temp.value);
 
-                                post('backend/filmformset.php', 'film=' + film_req + '&dev=' + dev_req + '&type=' + type_req + '&dilution=' + dilution_req + '&ASAISO=' + ASAISO_req + '&temp=' + temp_req).then(value => {
+                                post('backend/filmformset.php', 'film=' + film_req + '&dev=' + dev_req + '&type=' + type_req + '&dilution=' + dilution_req + '&ASAISO=' + ASAISO_req + '&temp=' + temp_req,event.target).then(value => {
                                     let m, s, request = '';
                                     request = value.toString();
                                     if (request === 'false') {
@@ -159,8 +159,9 @@ class Timer {
         document.getElementById("start" + name).addEventListener('click', goStart);
         document.getElementById("pause" + name).addEventListener('click', goPause);
         document.getElementById("stork" + name).addEventListener('click', storkAction);
-        document.getElementById("process" + name).addEventListener('mousedown', dragable);
-
+        if(!is_touch_device) {
+            document.getElementById("process" + name).addEventListener('mousedown', dragable);
+        }
         let del = document.getElementById("delete" + name);
         del.addEventListener('click', deleteTimer);
 
@@ -170,6 +171,7 @@ class Timer {
             document.getElementById("set" + name).removeEventListener('click', setForm);
             document.getElementById("delete" + name).removeEventListener('click',deleteTimer);
             document.getElementById("stork" + name).removeEventListener('click',storkAction);
+            document.getElementById("process" + name).removeEventListener('mousedown', dragable);
             document.getElementById("timer" + name).remove();
             cancelAnimationFrame(set);
         }
@@ -317,7 +319,7 @@ class Timer {
                     if (m == 0 && s == 0) {
                         ms = "00";
                         let audio = new Audio();
-                        audio.src = '../../sounds/duck.wav';
+                        audio.src = '../../sounds/duck.mp3';
                         audio.autoplay = true;
                         timer.parentNode.parentNode.classList.add('finished')
                     }
@@ -334,3 +336,4 @@ class Timer {
 }
 
 window.Timer = Timer;
+

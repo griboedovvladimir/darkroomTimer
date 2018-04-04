@@ -21,10 +21,25 @@ static goMain(wrapper){
         })
     }
     main().then(() => {
+
         let htmlImport = document.querySelector('link[rel="import"]');
         let htmlDoc = htmlImport.import;
         let htmlMessage = htmlDoc.querySelector('#main');
         wrapper.appendChild(htmlMessage.cloneNode(true));
+
+        document.getElementById('checkbox1').addEventListener('change',()=>{
+            if(document.querySelector('#checkbox1').checked){
+                let link = document.createElement("link");
+                link.id="darkroom";
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = '../../css/styleDark.css';
+                document.getElementsByTagName("head")[0].appendChild(link)
+            }
+            else{
+                document.querySelector('#darkroom').remove();
+            }
+        });
 
         clock();
 
@@ -107,3 +122,4 @@ rightpanel.addEventListener('click',e=>{
 
 }
 window.Main=Main;
+

@@ -14,6 +14,7 @@ class ContentWindow {
         close.id = 'closeContentWin';
         win.appendChild(close);
         let header = document.createElement('div');
+        header.id="ContentWinHead";
         header.innerHTML = document.getElementById(this.el).getAttribute('data-tooltip') ? document.getElementById(this.el).getAttribute('data-tooltip').toUpperCase() : this.el.toUpperCase();
         win.appendChild(header);
         let content = document.createElement('div');

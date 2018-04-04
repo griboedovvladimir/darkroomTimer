@@ -19,27 +19,34 @@ if(!document.getElementById('dialogWin')) {
     close.innerHTML = '&#215';
     close.id='close';
     win.appendChild(close);
-/////////////////////// delete table from DB in develop process, realisation at 1.1 version ///////////////////////////////
-    // post('backend/save.php','token='+token).then(value=>{
-    //     let requestarr=JSON.parse(value).split('$');
-    //     requestarr.forEach(i=>{
-    //         let p=document.createElement('p');
-    //         let check=document.createElement('input');
-    //         check.setAttribute('value',JSON.parse(i).tableName);
-    //         check.setAttribute('type','checkbox');
-    //         p.appendChild(check);
-    //         p.innerHTML=p.innerHTML+JSON.parse(i).tableName;
-    //         win.appendChild(p);
-    //         console.log(p);
-    //     })
-    // });
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    let select=document.createElement('select');
+    post('backend/save.php','token='+token).then(value=>{
+        if(value!=='false') {
+            let requestarr = JSON.parse(value).split('$');
+            requestarr.forEach(i => {
+                let option = document.createElement('option');
+                option.innerHTML = JSON.parse(i).tableName;
+                select.appendChild(option);
+
+            })
+        }
+    });
+
     win.innerHTML = win.innerHTML + 'Save table as';
     form.appendChild(input);
     form.appendChild(saveButton);
+    form.innerHTML=form.innerHTML+'Delete table as';
+    let deleteButton=document.createElement('button');
+    deleteButton.innerHTML="DELETE";
+    deleteButton.id='del';
+    deleteButton.classList.add('dialogButtons');
+    form.appendChild(select);
+    form.appendChild(deleteButton);
     win.appendChild(form);
     document.body.appendChild(win);
     window.addEventListener('click',eventer);
+
     function eventer(event) {
         function check(value){
             let reg=/^[A-zА-я0-9]([A-zА-я0-9][ ]?){1,20}$/;
@@ -47,6 +54,13 @@ if(!document.getElementById('dialogWin')) {
         }
         event.preventDefault();
         if(event.target.id==='close'||(event.target.id!=='dialogWin'&&event.target.parentNode.id!=='dialogWin'&&event.target.id!=='saveTable'&&event.target.parentNode.tagName!=='FORM')){
+            window.removeEventListener('click',eventer);
+            document.getElementById('dialogWin').remove();
+        }
+        if(event.target.id==='del'&&input.value!==''){
+            post('backend/delete.php', 'token=' + token + '&value=' + select.value).then(value => {
+
+            });
             window.removeEventListener('click',eventer);
             document.getElementById('dialogWin').remove();
         }
@@ -60,6 +74,7 @@ if(!document.getElementById('dialogWin')) {
             window.removeEventListener('click', eventer);
             document.getElementById('dialogWin').remove();
         }
+
         }
 
     }
@@ -144,7 +159,7 @@ if(!document.getElementById('dialogWin')) {
     }
 }
 window.DialogWindow=DialogWindow;
-window.post=function post(url, requestuestBody) {
+window.post=function post(url, requestuestBody,el) {
     return new Promise(function (succeed, fail) {
         let request = new XMLHttpRequest();
         request.open("POST", url, true);
@@ -154,6 +169,21 @@ window.post=function post(url, requestuestBody) {
                 succeed(this.responseText);
             else
                 fail(new Error("Request failed: " + request.statusText));
+        });
+        request.addEventListener("loadstart", function () {
+            if(el) {
+                el.style.cssText='pointer-events:none';
+                let loader = document.createElement('p');
+                loader.innerHTML = 'laoding...';
+                loader.id='loader';
+                el.parentNode.appendChild(loader);
+            }
+        });
+        request.addEventListener("loadend", function () {
+            if(el){
+                document.getElementById('loader').remove();
+                el.style.cssText='';
+            }
         });
         request.addEventListener("error", function () {
             fail(new Error("Network error"));

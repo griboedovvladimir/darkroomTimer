@@ -21,7 +21,7 @@
     font-weight: normal;
 }
 a{
-    color:gray;
+    color:darkred;
 }
 #effectWrapper {
     height: 100%;
@@ -31,6 +31,8 @@ a{
 body {
     padding: 5px 10px 0;
     height: 100%;
+    background: black;
+    color:red;
 }
 
 #footer {
@@ -52,22 +54,28 @@ body {
     border: none;
     background: transparent;
     outline: none;
+    color:red;
 }
 
 #footer hr {
-    background-color: black;
+    background-color: red;
     border: none;
     height: 1px;
 }
 
+::-webkit-input-placeholder {color:red}
+::-moz-placeholder          {color:red}
+:-moz-placeholder           {color:red}
+:-ms-input-placeholder      {color:red}
 
 #wrapper {
     font-family: 'ProximaNova-Bold';
     font-size: 10pt;
     min-height: calc(100vh - 70px);
-    background: white url(../img/background.svg) no-repeat;
+    background: black url(../img/backgroundDark.svg) no-repeat;
     background-position: 50% 60%;
     background-size: 28%;
+
 }
 
 @media screen and (max-width: 900px) {
@@ -85,11 +93,12 @@ body {
     position: fixed;
     padding: 3px 8px;
     border-radius: 4px;
-    border: 1px solid black;
+    border: 1px solid red;
     text-align: center;
     font: 12px/1.3 'ProximaNova-Bold', sans-serif;
     color: #333;
-    background: #fff;
+    background: black;
+    color:red;
 }
 
 /*////////////login & registrations pages////////////*/
@@ -106,7 +115,7 @@ body {
 #loginForm button, #registrationForm button {
     height: 40px;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid red;
     margin: 10px 0 10px 0;
     background-color: transparent;
     font-family: 'ProximaNova-Bold';
@@ -126,6 +135,8 @@ body {
     padding: 3px;
     outline: none;
     width: 95%;
+    background: black;
+    color:red;
 }
 
 #loginForm input {
@@ -242,7 +253,7 @@ text-align: center;
 #controlpanel {
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid black;
+    border: 2px solid red;
     width: 250px;
     border-radius: 10px;
     padding: 5px;
@@ -251,7 +262,7 @@ text-align: center;
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 1;
-    background-color: white;
+    background-color:black;
 }
 
 #table {
@@ -306,7 +317,7 @@ text-align: center;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    border: 2px solid black;
+    border: 2px solid red;
     border-radius: 10px;
     padding: 5px;
     width: 60px;
@@ -314,7 +325,7 @@ text-align: center;
     justify-content: space-around;
     justify-self: end;
     margin: 10px 0 0 0;
-    background-color: white;
+    background-color: black;
 }
 
 /*//////////////////////dialog window//////////////////////*/
@@ -323,8 +334,8 @@ text-align: center;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-around;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: black;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     width: 200px;
     border-radius: 5px;
     text-align: center;
@@ -337,40 +348,49 @@ text-align: center;
     border-radius: 5px;
     margin: 0 0 10px 0;
     outline: none;
-    border: 1px solid black;
+    border: 1px solid red;
+    background: black;
+    color:red;
 }
 
 .dialogButtons {
     height: 40px;
     box-shadow: none;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid red;
     margin: 0 5px 10px 5px;
     width: 95%;
-    background-color: transparent;
     font-family: 'ProximaNova-Bold';
     letter-spacing: .1em;
     outline: none;
+    background: black;
+    color:red;
 }
 
 #load, #clearLoad {
     font-size: 8pt;
     letter-spacing: 0;
+    background: black;
+    color:red;
 }
-
+svg{
+    fill: red;
+}
 #dialogWin input {
     width: 90%;
     height: 25px;
     border-radius: 5px;
     margin: 0 0 10px 0;
     box-shadow: none;
-    border: 1px solid black;
+    border: 1px solid red;
     padding: 3px;
     outline: none;
+    background: black;
+    color:red;
 }
 
 #close,#closeContentWin {
-    background-color: white;
+    background-color: transparent;
     align-self: flex-end;
     border-radius: 5px;
     font-size: 16pt;
@@ -378,6 +398,7 @@ text-align: center;
     border: none;
     outline: none;
     width: 25px;
+    color:red;
 }
 
 /*////////////////////////////Content window//////////////////////////////*/
@@ -394,14 +415,15 @@ text-align: center;
     font-family: 'ProximaNova-Bold';
 }
 #winContent {
+    color:red;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     position: absolute;
     width: 400px;
     height: auto;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: black;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     border-radius: 5px;
     top: 5%;
     left: 0;
@@ -418,18 +440,22 @@ text-align: center;
      height: 25px;
      border-radius: 5px;
      box-shadow: none;
-     border: 1px solid black;
+     border: 1px solid red;
      padding: 3px;
      outline: none;
+     background: black;
+     color:red;
  }
 #winContent input[type="text"]{
     height: 15px;
     border-radius: 5px;
     box-shadow: none;
-    border: 1px solid black;
+    border: 1px solid red;
     padding: 3px;
     outline: none;
     margin: 3px 0;
+    background: black;
+    color:red;
 }
 dt{
     margin: 5px 0;
@@ -438,13 +464,14 @@ dt{
     height: 40px;
     box-shadow: none;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid red;
     margin: 0 5px 10px 5px;
     width: 95%;
     background-color: transparent;
     font-family: 'ProximaNova-Bold';
     letter-spacing: .1em;
     outline: none;
+    color: red;
 }
 #convertResult{
     font-family: 'ProximaNova-Bold';
@@ -453,12 +480,16 @@ dt{
 /*//////////////////////////timers/////////////////////////////////////*/
 .timers {
     flex-direction:column;
-    border: 2px solid black;
+    border: 2px solid red;
     width: 250px;
     border-radius: 10px;
     margin: 10px 0 0 0;
-    background-color: white;
+    background-color: black;
 
+}
+.timers button{
+    background: black;
+    color:red;
 }
 .timers h4{
     text-align: center;
@@ -472,7 +503,7 @@ dt{
 }
 .delete{
     float: right;
-    background-color: white;
+    background-color: transparent;
     align-self:flex-end;
     background-color: transparent;
     right:0;
@@ -505,39 +536,46 @@ text-align: center;
 }
 .settimerpanel textarea {
     width: 95%;
-    border: 1px solid black;
+    border: 1px solid red;
     border-radius: 5px;
     outline: none;
     resize: none;
+    background: black;
+    color:red;
 }
 .settimerpanel input {
-    border: 1px solid black;
+    border: 1px solid red;
     margin: 3px 2px;
     border-radius: 5px;
     outline: none;
-
+    background: black;
+    color:red;
 }
 .settimerpanel input[name="process"]{
     width: 50%;
 }
 .settimerpanel select{
     width: 50%;
-    border: 1px solid black;
+    border: 1px solid red;
     margin: 3px 2px;
     border-radius: 5px;
     outline: none;
+    background: black;
+    color:red;
 }
 .settimerpanel form select{
      width: 32%;
-     border: 1px solid black;
+     border: 1px solid red;
      margin: 5px 0px 3px 2px;
      border-radius: 5px;
      outline: none;
+    background: black;
+    color:red;
  }
 .settimerpanel form button{
     box-shadow: none;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid red;
     margin-top: 5px;
     height: 25px;
     background-color: transparent;
@@ -545,6 +583,7 @@ text-align: center;
     letter-spacing: .1em;
     width:100%;
     outline: none;
+    color: red;
 }
 .settimerpanel form p p{
      display: flex;
@@ -569,6 +608,7 @@ text-align: center;
     border: none;
     background: none;
     outline: none;
+    color:red
 }
 
 .icon2 {
@@ -578,6 +618,7 @@ text-align: center;
     border: none;
     background: none;
     outline: none;
+    color:red
 }
 
 .icon3 {
@@ -587,13 +628,14 @@ text-align: center;
     border: none;
     background: none;
     outline: none;
+    color:red
 }
 
 .filmbutton {
     font-family: 'icon';
     font-size: 40px;
     box-shadow: none;
-    border: 2px solid black;
+    border: 2px solid red;
     background: none;
     outline: none;
     width: 100%;
@@ -628,6 +670,7 @@ text-align: center;
     font-size: 15px;
     transition: font-size 0.2s ease-out 0.2s;
     height: 30px;
+    color: red;
 }
 
 .storkUp:hover {
@@ -645,6 +688,7 @@ text-align: center;
     outline: none;
     font-size: 15px;
     transition: font-size 0.2s ease-out 0.2s;
+    color: red;
 }
 
 .storkDown:hover {
@@ -711,7 +755,7 @@ text-align: center;
     border-radius: 30px;
     height: 30px;
     width: 30px;
-    background: white;
+    background: black;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px black;
     font-family: 'icon';
 }
