@@ -1,35 +1,21 @@
-class Registration{
-    constructor(){
+class Registration {
+    constructor() {
 
     }
-    static  goRegistration(wrapper){
-        if (sessionStorage.getItem('darkroomtimer')||localStorage.getItem('darkroomtimer')) {
+
+    static goRegistration(wrapper) {
+        if (sessionStorage.getItem('darkroomtimer') || localStorage.getItem('darkroomtimer')) {
             document.location.href = "#main";
         }
         else {
-            if (document.querySelector('link[rel="import"]')) {
-                document.querySelector('link[rel="import"]').remove()
-            }
-            let link = document.createElement('link');
 
-            function registration() {
-                return new Promise((resolve, reject) => {
-                    link.rel = 'import';
-                    link.href = 'scripts/pages/registration.html';
-                    link.onload = () => resolve();
-                })
-            }
+            get('../../scripts/pages/registration.html', '').then(resp => {
+                wrapper.innerHTML = resp.response;
 
-            registration().then(() => {
-                let htmlImport = document.querySelector('link[rel="import"]');
-                let htmlDoc = htmlImport.import;
-                let htmlMessage = htmlDoc.querySelector('#registrationForm');
-                wrapper.appendChild(htmlMessage.cloneNode(true));
             });
-            document.head.appendChild(link);
             document.addEventListener('click', e => {
                 return new Promise(function (resolve, reject) {
-                    if (e.target.type === 'submit' && e.target.id==='register') {
+                    if (e.target.type === 'submit' && e.target.id === 'register') {
                         e.preventDefault();
                         resolve()
                     }
@@ -39,16 +25,15 @@ class Registration{
                     if (LoginCheck.checkEmail(email, pass) === "sucess" && LoginCheck.checkPassword(email, pass) === 'sucess') {
                         post('backend/register.php', 'email=' + email + '&password=' + pass).then(value => {
                             let form = document.getElementById('registrationForm');
-                            if (value!== "false")
-                            {
+                            if (value !== "false") {
                                 localStorage.setItem('darkroomtimer', value);
                                 wrapper.innerHTML = '';
                                 document.location.href = "#main";
                             }
                             else {
-                                if (document.getElementById('registerErrMessage'))document.getElementById('registerErrMessage').remove();
+                                if (document.getElementById('registerErrMessage')) document.getElementById('registerErrMessage').remove();
                                 let errMessage = document.createElement('p');
-                                errMessage.id='registerErrMessage';
+                                errMessage.id = 'registerErrMessage';
                                 errMessage.innerHTML = 'This email address already exists';
                                 errMessage.style.color = 'red';
                                 form.appendChild(errMessage);
@@ -59,6 +44,7 @@ class Registration{
                 })
 
             });
+
             function post(url, requestuestBody) {
                 return new Promise(function (succeed, fail) {
                     let request = new XMLHttpRequest();
@@ -80,4 +66,5 @@ class Registration{
     }
 
 }
-window.Registration=Registration;
+
+window.Registration = Registration;

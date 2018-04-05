@@ -1,5 +1,4 @@
 <?php
-////if ($_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {return;}
 
 $arrPost=[$_POST['email'],$_POST['password']];
 

@@ -4,7 +4,7 @@ const is_touch_device=(function () {
         || 'onmsgesturechange' in window; // works on ie10
 })();
 
-if(!is_touch_device) {
+if (!is_touch_device) {
     document.onmouseover = function (e) {
         let target = e.target;
 

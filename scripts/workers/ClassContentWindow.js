@@ -14,7 +14,7 @@ class ContentWindow {
         close.id = 'closeContentWin';
         win.appendChild(close);
         let header = document.createElement('div');
-        header.id="ContentWinHead";
+        header.id = "ContentWinHead";
         header.innerHTML = document.getElementById(this.el).getAttribute('data-tooltip') ? document.getElementById(this.el).getAttribute('data-tooltip').toUpperCase() : this.el.toUpperCase();
         win.appendChild(header);
         let content = document.createElement('div');
@@ -60,7 +60,7 @@ class ContentWindow {
                         let Units2 = parseFloat(document.form1.units2.value, 10);
                         let Units3 = parseFloat(document.form1.units3.value, 10);
 
-                        if(!isNaN(FinalVol)&&!isNaN(Units1)&&!isNaN(Units2)&&!isNaN(Units3)) {
+                        if (!isNaN(FinalVol) && !isNaN(Units1) && !isNaN(Units2) && !isNaN(Units3)) {
                             let TotalUnits = Units1 + Units2 + Units3;
                             let TotalMix = FinalVol / TotalUnits;
 
