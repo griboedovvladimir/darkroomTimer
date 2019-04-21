@@ -1,35 +1,21 @@
-class Login{
-    constructor(){
+class Login {
+    constructor() {
 
     }
-    static  goLogin(wrapper) {
-        if (localStorage.getItem('darkroomtimer')||sessionStorage.getItem('darkroomtimer')) {
+
+    static goLogin(wrapper) {
+        if (localStorage.getItem('darkroomtimer') || sessionStorage.getItem('darkroomtimer')) {
             document.location.href = "#main";
         }
         else {
-            if (document.querySelector('link[rel="import"]')) {
-                document.querySelector('link[rel="import"]').remove()
-            }
-            let link = document.createElement('link');
+            get('../../scripts/pages/login.html', '').then(resp => {
+                wrapper.innerHTML = resp.response;
 
-            function login() {
-                return new Promise((resolve, reject) => {
-                    link.rel = 'import';
-                    link.href = 'scripts/pages/login.html';
-                    link.onload = () => resolve();
-                })
-            }
-
-            login().then(() => {
-                let htmlImport = document.querySelector('link[rel="import"]');
-                let htmlDoc = htmlImport.import;
-                let htmlMessage = htmlDoc.querySelector('#loginForm');
-                wrapper.appendChild(htmlMessage.cloneNode(true));
             });
-            document.head.appendChild(link);
+
             document.addEventListener('click', e => {
                 return new Promise(function (resolve, reject) {
-                    if (e.target.type === 'submit' && e.target.id==='signin') {
+                    if (e.target.type === 'submit' && e.target.id === 'signin') {
                         e.preventDefault();
                         resolve()
                     }
@@ -40,23 +26,39 @@ class Login{
                         post('backend/login.php', 'email=' + email + '&password=' + pass).then(value => {
                             let form = document.getElementById('loginForm');
                             if (value !== 'false') {
-                                if(document.getElementById('rememberme').checked) {
-                                    localStorage.setItem('darkroomtimer', value);
+                                if (document.getElementById('rememberme')) {
+                                    if (document.getElementById('rememberme').checked) {
+                                        localStorage.setItem('darkroomtimer', value);
+                                    }
+                                    else sessionStorage.setItem('darkroomtimer', value);
+                                    wrapper.innerHTML = '';
+                                    document.location.href = "#main";
                                 }
-                                else sessionStorage.setItem('darkroomtimer', value);
-                                wrapper.innerHTML = '';
-                                document.location.href = "#main";
                             }
                             else {
-                                if(document.getElementById('errMessage'))document.getElementById('errMessage').remove();
+                                if (document.getElementById('errMessage')) document.getElementById('errMessage').remove();
                                 let errMessage = document.createElement('p');
                                 errMessage.innerHTML = 'This email and password are not found';
-                                errMessage.id='errMessage';
+                                errMessage.id = 'errMessage';
                                 errMessage.style.color = 'red';
                                 form.appendChild(errMessage);
                             }
                         });
 
+                    }
+                    else{
+                        if (document.getElementById('errMessage')) document.getElementById('errMessage').remove();
+                        let form = document.getElementById('loginForm');
+                        let errMessage = document.createElement('p');
+                        if(LoginCheck.checkEmail(email, pass)!=='sucess') {
+                            errMessage.innerHTML = LoginCheck.checkEmail(email, pass);
+                        }
+                        else {
+                            errMessage.innerHTML = LoginCheck.checkPassword(email, pass);
+                        }
+                        errMessage.id = 'errMessage';
+                        errMessage.style.color = 'red';
+                        form.appendChild(errMessage);
                     }
                 })
 
@@ -83,4 +85,5 @@ class Login{
         }
     }
 }
-window.Login=Login;
+
+window.Login = Login;

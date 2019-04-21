@@ -7,7 +7,6 @@ function getBingLink($link)
     $mydom->preserveWhiteSpace = false;
     $mydom->resolveExternals = false;
     $mydom->validateOnParse = false;
-    //разбираем HTML
     $mydom->loadHTML($content);
     return $mydom->getElementsByTagName('p')[6]->nodeValue;
 }

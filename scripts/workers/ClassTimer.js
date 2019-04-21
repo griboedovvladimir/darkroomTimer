@@ -1,29 +1,29 @@
 class Timer {
-    constructor(wrapper, name,position) {
+    constructor(wrapper, name, position) {
         this.wrapper = document.getElementById(wrapper);
         this.name = name;
         this.newTimer = document.createElement('div');
         this.newTimer.id = "timer" + this.name;
-        this.newTimer.classList='timers';
-        this.position=position;
+        this.newTimer.classList = 'timers';
+        this.position = position;
     }
 
     addTimer() {
-        if(this.position!==undefined && !is_touch_device){
-            this.newTimer.style.cssText='position:'+this.position[2]+';top:'+(this.position[0]-10)+'px;left:'+this.position[1]+'px';
+        if (this.position !== undefined && !is_touch_device) {
+            this.newTimer.style.cssText = 'position:' + this.position[2] + ';top:' + (this.position[0] - 10) + 'px;left:' + this.position[1] + 'px';
         }
-        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><h4 id="process' + this.name + '">defult process</h4><div class="timerpanel"><span id="numbers' + this.name + '" >00:00:00</span><p id="notes'+this.name+'">Note: </p><button id = "pause' +
+        this.newTimer.innerHTML = '<button class="delete" id = "delete' + this.name + '">&#215</button><h4 id="process' + this.name + '">defult process</h4><div class="timerpanel"><span id="numbers' + this.name + '" >00:00:00</span><p id="notes' + this.name + '">Note: </p><button id = "pause' +
             this.name + '" class="icon2">&#xe904</button><button id = "start' + this.name +
             '" class="icon2">&#xe906</button><button id = "set' + this.name + '" class="icon2">&#xe908;</button></div><div class="settimerpanel_hidden">' +
             'Select process<select id="select' + this.name + '"><option>film developer</option><option>developer</option><option>fix bath</option><option>stop bath</option><option>washing</option><option>drying</option><option>stabilised</option><option>exposure</option></select><br>Other process<input type="text" id="other_process' + this.name +
             '" name="process" size="4" value=""/><div><input type="text" id="min' +
             this.name + '" name="min" size="1" value="00"/>:<input type="text" id="sec' + this.name + '" name="sec" size="1" value="00"/>:<input type="text" id="ms' +
-            this.name + '" name="ms" size="1" value="00"/></div><textarea class="timerinputs"  maxlength="100" placeholder="Note" id="notesinput' + this.name + '"></textarea><div><button id = "loadfilmpreset' + this.name + '" data-tooltip="Load film preset time" class="filmbutton">&#xe902</button></div></div><button class="storkUp" id="stork'+this.name+'">&#9660</button>';
+            this.name + '" name="ms" size="1" value="00"/></div><textarea class="timerinputs"  maxlength="100" placeholder="Note" id="notesinput' + this.name + '"></textarea><div><button id = "loadfilmpreset' + this.name + '" data-tooltip="Load film preset time" class="filmbutton">&#xe902</button></div></div><button class="storkUp" id="stork' + this.name + '">&#9660</button>';
 
         this.wrapper.appendChild(this.newTimer);
     }
 
-    setTimer(process,value,notes) {
+    setTimer(process, value, notes) {
         document.getElementById("numbers" + this.name).innerHTML = value;
         document.getElementById("process" + this.name).innerHTML = process;
         document.getElementById("notes" + this.name).innerHTML = notes;
@@ -31,7 +31,7 @@ class Timer {
 
     static loadFilmPreset(e) {
         if (!document.getElementById('filmform' + e.target.id.substring(14))) {
-            post('backend/filmform.php', '',e.target).then(value => {
+            post('backend/filmform.php', '', e.target).then(value => {
                 let arr = JSON.parse(value);
                 let name = e.target.id.substring(14);
                 let form = document.createElement('form');
@@ -69,7 +69,7 @@ class Timer {
                         type = document.getElementById('filmtype' + name).value,
                         dev = document.getElementById('dev' + name).value;
 
-                    post('backend/filmform2.php', 'film=' + encodeURIComponent(film) + '&dev=' + encodeURIComponent(dev) + '&type=' + type,event.target).then(value => {
+                    post('backend/filmform2.php', 'film=' + encodeURIComponent(film) + '&dev=' + encodeURIComponent(dev) + '&type=' + type, event.target).then(value => {
                         div.appendChild(message);
                         if (JSON.parse(value) === "false") {
                             message.innerHTML = 'Selected film and developer can\'t use together';
@@ -116,13 +116,13 @@ class Timer {
                                     ASAISO_req = encodeURIComponent(ASAISO.value),
                                     temp_req = encodeURIComponent(temp.value);
 
-                                post('backend/filmformset.php', 'film=' + film_req + '&dev=' + dev_req + '&type=' + type_req + '&dilution=' + dilution_req + '&ASAISO=' + ASAISO_req + '&temp=' + temp_req,event.target).then(value => {
+                                post('backend/filmformset.php', 'film=' + film_req + '&dev=' + dev_req + '&type=' + type_req + '&dilution=' + dilution_req + '&ASAISO=' + ASAISO_req + '&temp=' + temp_req, event.target).then(value => {
                                     let m, s, request = '';
                                     request = value.toString();
                                     if (request === 'false') {
-                                    let message=document.createElement('p');
-                                    message.innerHTML='Time not found, select other parameters';
-                                    form.appendChild(message);
+                                        let message = document.createElement('p');
+                                        message.innerHTML = 'Time not found, select other parameters';
+                                        form.appendChild(message);
                                     }
                                     else {
                                         if (request < 10) {
@@ -159,7 +159,7 @@ class Timer {
         document.getElementById("start" + name).addEventListener('click', goStart);
         document.getElementById("pause" + name).addEventListener('click', goPause);
         document.getElementById("stork" + name).addEventListener('click', storkAction);
-        if(!is_touch_device) {
+        if (!is_touch_device) {
             document.getElementById("process" + name).addEventListener('mousedown', dragable);
         }
         let del = document.getElementById("delete" + name);
@@ -169,18 +169,20 @@ class Timer {
             document.getElementById("start" + name).removeEventListener('click', goStart);
             document.getElementById("pause" + name).removeEventListener('click', goPause);
             document.getElementById("set" + name).removeEventListener('click', setForm);
-            document.getElementById("delete" + name).removeEventListener('click',deleteTimer);
-            document.getElementById("stork" + name).removeEventListener('click',storkAction);
+            document.getElementById("delete" + name).removeEventListener('click', deleteTimer);
+            document.getElementById("stork" + name).removeEventListener('click', storkAction);
             document.getElementById("process" + name).removeEventListener('mousedown', dragable);
             document.getElementById("timer" + name).remove();
             cancelAnimationFrame(set);
         }
-        function dragable(e){
-            if(e.target.id==='process'+name) {
+
+        function dragable(e) {
+            if (e.target.id === 'process' + name) {
                 let startX = document.getElementById("timer" + name).offsetLeft;
                 let startY = document.getElementById("timer" + name).offsetTop - 10;
                 document.getElementById("timer" + name).style.cssText = document.getElementById("timer" + name).style.cssText + 'position:absolute;left:' + startX + 'px;top:' + startY + 'px;';
                 dragElement(document.getElementById("timer" + name));
+
                 function dragElement(elmnt) {
                     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
                     if (document.getElementById(elmnt.id)) {
@@ -219,42 +221,44 @@ class Timer {
 
 
         }
+
         function storkAction() {
-            let inner=document.getElementById("stork" + name).classList[0];
-            if (inner==='storkUp'){
-                document.getElementById("stork" + name).innerHTML='&#9650';
+            let inner = document.getElementById("stork" + name).classList[0];
+            if (inner === 'storkUp') {
+                document.getElementById("stork" + name).innerHTML = '&#9650';
                 document.getElementById("stork" + name).classList.remove('storkUp');
                 document.getElementById("stork" + name).classList.toggle("storkDown");
-                let el=document.getElementById('timer'+name).querySelectorAll('.settimerpanel_hidden')[0];
+                let el = document.getElementById('timer' + name).querySelectorAll('.settimerpanel_hidden')[0];
                 el.classList.remove('settimerpanel_hidden');
                 el.classList.add('settimerpanel');
             }
-            else{
-                document.getElementById("stork" + name).innerHTML='&#9660';
+            else {
+                document.getElementById("stork" + name).innerHTML = '&#9660';
                 document.getElementById("stork" + name).classList.remove('storkDown');
                 document.getElementById("stork" + name).classList.toggle("storkUp");
-                let el=document.getElementById('timer'+name).querySelectorAll('.settimerpanel')[0];
+                let el = document.getElementById('timer' + name).querySelectorAll('.settimerpanel')[0];
                 el.classList.remove('settimerpanel');
                 el.classList.add('settimerpanel_hidden');
             }
         }
+
         function goPause() {
             cancelAnimationFrame(set);
         }
 
         function goStart() {
-            let min = document.getElementById("min" + name).value||valueArr[0];
-            let sec = document.getElementById("sec" + name).value||valueArr[1];
-            let ms = document.getElementById("ms" + name).value||valueArr[2];
-            if(value) {
+            let min = document.getElementById("min" + name).value || valueArr[0];
+            let sec = document.getElementById("sec" + name).value || valueArr[1];
+            let ms = document.getElementById("ms" + name).value || valueArr[2];
+            if (value) {
                 let valueArr = value.split(':');
-                 min = valueArr[0];
-                 sec = valueArr[1];
-                 ms = valueArr[2];
+                min = valueArr[0];
+                sec = valueArr[1];
+                ms = valueArr[2];
             }
             cancelAnimationFrame(set);
 
-            if(!(min==='00'&& sec==='00'&& ms==='00')) startTimer();
+            if (!(min === '00' && sec === '00' && ms === '00')) startTimer();
         }
 
         let setButton = document.getElementById("set" + name);
@@ -268,31 +272,34 @@ class Timer {
             let min = document.getElementById("min" + name).value;
             let sec = document.getElementById("sec" + name).value;
             let ms = document.getElementById("ms" + name).value;
-            document.getElementById('notes'+name).innerHTML='Note: '+document.getElementById("notesinput" + name).value;
-            function check(value){
-                let reg=/^[0-5][0-9]$/;
+            document.getElementById('notes' + name).innerHTML = 'Note: ' + document.getElementById("notesinput" + name).value;
+
+            function check(value) {
+                let reg = /^[0-5][0-9]$/;
                 return reg.test(value);
             }
-            function check2(value){
-                let reg=/^[0-9][0-9]$/;
+
+            function check2(value) {
+                let reg = /^[0-9][0-9]$/;
                 return reg.test(value);
             }
-            if(check(min) && check(sec) && check2(ms)) {
-                if(document.getElementById("errorselect" + name))document.getElementById("errorselect" + name).remove();
+
+            if (check(min) && check(sec) && check2(ms)) {
+                if (document.getElementById("errorselect" + name)) document.getElementById("errorselect" + name).remove();
                 document.getElementById("numbers" + name).innerHTML = `${min}:${sec}:${ms}`;
                 let process = document.getElementById("process" + name);
                 let select = document.getElementById("select" + name).value;
                 let other_process = document.getElementById("other_process" + name).value;
-                if(other_process.length<20) {
+                if (other_process.length < 20) {
                     process.innerHTML = other_process ? other_process : select;
                 }
             }
-            else{
-                if(document.getElementById("errorselect" + name))document.getElementById("errorselect" + name).remove();
+            else {
+                if (document.getElementById("errorselect" + name)) document.getElementById("errorselect" + name).remove();
                 let ms = document.getElementById("ms" + name);
-                let message=document.createElement('p');
-                message.id='errorselect'+name;
-                message.innerHTML='Uncorrected time';
+                let message = document.createElement('p');
+                message.id = 'errorselect' + name;
+                message.innerHTML = 'Uncorrected time';
                 document.getElementById("timer" + name).insertBefore(message, ms.nextElementSibling);
             }
         }
@@ -301,13 +308,13 @@ class Timer {
         function startTimer() {
             let time = timer.innerHTML;
             let arr = time.split(":");
-            let min=arr[0], sec=arr[1], ms=arr[2];
-            time = min * 60 + parseInt(sec)+ parseInt(ms) / 100;
+            let min = arr[0], sec = arr[1], ms = arr[2];
+            time = min * 60 + parseInt(sec) + parseInt(ms) / 100;
             let countdown = new Date(),
                 responseTime = new Date(Date.now() + (1000 * time));
 
             function goTimer() {
-                if(timer.innerHTML!=="00:00:00") {
+                if (timer.innerHTML !== "00:00:00") {
                     countdown.setTime(responseTime - Date.now());
                     let m = countdown.getUTCMinutes().toString(),
                         s = countdown.getUTCSeconds().toString(),
@@ -330,7 +337,7 @@ class Timer {
                 }
             }
 
-           set= requestAnimationFrame(goTimer);
+            set = requestAnimationFrame(goTimer);
         }
     }
 }
