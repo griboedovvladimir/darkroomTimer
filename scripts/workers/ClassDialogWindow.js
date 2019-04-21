@@ -179,14 +179,14 @@ window.post = function post(url, requestuestBody, el) {
             if (el) {
                 el.style.cssText = 'pointer-events:none';
                 let loader = document.createElement('p');
-                loader.innerHTML = ' ';
+                loader.innerHTML = 'laoding...';
                 loader.id = 'loader';
                 el.parentNode.appendChild(loader);
             }
         });
         request.addEventListener("loadend", function () {
             if (el) {
-                document.getElementById('loader').remove();
+                if(document.getElementById('loader')) { document.getElementById('loader').remove() }
                 el.style.cssText = '';
             }
         });

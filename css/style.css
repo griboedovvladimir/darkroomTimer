@@ -94,9 +94,16 @@ body {
 
 /*////////////login & registrations pages////////////*/
 #formWrapper, #registrationForm {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
     width: 250px;
     padding-top: 15vh;
@@ -121,6 +128,7 @@ body {
 #registrationForm input {
     height: 25px;
     border-radius: 5px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: 2px solid black;
     padding: 3px;
@@ -131,6 +139,7 @@ body {
 #loginForm input {
     height: 25px;
     border-radius: 5px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: 2px solid black;
     padding: 3px;
@@ -146,6 +155,8 @@ body {
 }
 
 .chekboxRemember {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 
 }
@@ -190,13 +201,15 @@ body {
 }
 
 #clock {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin: 3px 0 3px 0;
 }
 
 h1 {
     margin: 5px auto ;
-text-align: center;
+    text-align: center;
 }
 
 #main {
@@ -204,13 +217,20 @@ text-align: center;
 }
 
 .row1 {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 }
 
 .row2 {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: auto 80px;
     grid-template-columns: auto 80px;
 }
 
@@ -220,8 +240,11 @@ text-align: center;
 
 @media screen and (max-width: 400px) {
     #logout {
+        -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
         text-align: center;
+        -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
         order: -1;
     }
 
@@ -240,81 +263,116 @@ text-align: center;
 }
 
 #controlpanel {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     border: 2px solid black;
     width: 254px;
     border-radius: 10px;
     padding: 5px;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
+    -ms-grid-column: 2;
     grid-column-start: 2;
     grid-column-end: 2;
+    -ms-grid-row: 1;
     grid-row-start: 1;
     grid-row-end: 1;
     background-color: white;
 }
 
 #loginForm p{
-   margin: 5px 0;
+    margin: 5px 0;
 }
 
 #table {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: (1fr)[4];
     grid-template-columns: repeat(4, 1fr);
+    -ms-grid-rows: (1fr)[1];
     grid-template-rows: repeat(1, 1fr);
     grid-gap: 1rem;
+    -ms-grid-column: 1;
     grid-column-start: 1;
     grid-column-end: 1;
+    -ms-grid-row: 1;
     grid-row-start: 1;
     grid-row-end: 1;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: start;
 }
 @media screen and (max-width: 1000px) {
     #table {
+        display: -ms-grid;
         display: grid;
+        -ms-grid-columns: (1fr)[3];
         grid-template-columns: repeat(3, 1fr);
+        -ms-grid-rows: (1fr)[1];
         grid-template-rows: repeat(1, 1fr);
         grid-gap: 1rem;
+        -ms-grid-column: 1;
         grid-column-start: 1;
         grid-column-end: 1;
+        -ms-grid-row: 1;
         grid-row-start: 1;
         grid-row-end: 1;
     }
 }
 @media screen and (max-width: 800px) {
     #table {
+        display: -ms-grid;
         display: grid;
+        -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
+        -ms-grid-rows: (1fr)[1];
         grid-template-rows: repeat(1, 1fr);
         grid-gap: 1rem;
+        -ms-grid-column: 1;
         grid-column-start: 1;
         grid-column-end: 1;
+        -ms-grid-row: 1;
         grid-row-start: 1;
         grid-row-end: 1;
     }
 }
 @media screen and (max-width: 450px) {
     #table {
+        display: -ms-grid;
         display: grid;
+        -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
+        -ms-grid-rows: (1fr)[1];
         grid-template-rows: repeat(1, 1fr);
         grid-gap: 1rem;
+        -ms-grid-column: 1;
         grid-column-start: 1;
         grid-column-end: 1;
+        -ms-grid-row: 1;
         grid-row-start: 1;
         grid-row-end: 1;
     }
 }
 
 #rightpanel {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     border: 2px solid black;
     border-radius: 10px;
     padding: 5px;
     width: 60px;
     height: 180px;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
     justify-self: end;
     margin: 10px 0 0 0;
@@ -323,11 +381,19 @@ text-align: center;
 
 /*//////////////////////dialog window//////////////////////*/
 #dialogWin {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
     background-color: white;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     width: 200px;
     border-radius: 5px;
@@ -346,6 +412,7 @@ text-align: center;
 
 .dialogButtons {
     height: 40px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 5px;
     border: 2px solid black;
@@ -367,6 +434,7 @@ text-align: center;
     height: 25px;
     border-radius: 5px;
     margin: 0 0 10px 0;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: 1px solid black;
     padding: 3px;
@@ -375,9 +443,11 @@ text-align: center;
 
 #close,#closeContentWin {
     background-color: white;
+    -ms-flex-item-align: end;
     align-self: flex-end;
     border-radius: 5px;
     font-size: 16pt;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     outline: none;
@@ -392,19 +462,28 @@ text-align: center;
 }
 #ContentWinHead{
     height: 30px;
-   text-align: center;
+    text-align: center;
+    -ms-flex-item-align:center;
+    -ms-grid-row-align:center;
     align-self:center;
     line-height: 30px;
     font-family: 'ProximaNova-Bold';
 }
 #winContent {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     position: absolute;
     width: 400px;
     height: auto;
     background-color: white;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     top: 5%;
@@ -416,19 +495,22 @@ text-align: center;
 }
 #content{
     padding: 0 8px 15px 8px;
+    -ms-flex-line-pack:start;
     align-content:flex-start;
 }
- #winContent select{
-     height: 25px;
-     border-radius: 5px;
-     box-shadow: none;
-     border: 1px solid black;
-     padding: 3px;
-     outline: none;
- }
+#winContent select{
+    height: 25px;
+    border-radius: 5px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid black;
+    padding: 3px;
+    outline: none;
+}
 #winContent input[type="text"]{
     height: 15px;
     border-radius: 5px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: 1px solid black;
     padding: 3px;
@@ -440,6 +522,7 @@ dt{
 }
 #buttonSubmit, #volumeCalc{
     height: 40px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 5px;
     border: 2px solid black;
@@ -456,6 +539,9 @@ dt{
 
 /*//////////////////////////timers/////////////////////////////////////*/
 .timers {
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+    -ms-flex-direction:column;
     flex-direction:column;
     border: 2px solid black;
     width: 250px;
@@ -471,24 +557,27 @@ dt{
     font-size: 12pt;
 }
 .finished {
+    -webkit-box-shadow: 0 0 20px rgb(255, 0, 0);
     box-shadow: 0 0 20px rgb(255, 0, 0);
     border-color: red;
 }
 .delete{
     float: right;
     background-color: white;
+    -ms-flex-item-align:end;
     align-self:flex-end;
     background-color: transparent;
     right:0;
     border-radius: 5px;
     font-size: 16pt;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     outline: none;
     width: 25px;
 }
 .timerpanel {
-text-align: center;
+    text-align: center;
 }
 .timerpanel p{
     text-align: left;
@@ -532,13 +621,14 @@ text-align: center;
     outline: none;
 }
 .settimerpanel form select{
-     width: 32%;
-     border: 1px solid black;
-     margin: 5px 0px 3px 2px;
-     border-radius: 5px;
-     outline: none;
- }
+    width: 32%;
+    border: 1px solid black;
+    margin: 5px 0px 3px 2px;
+    border-radius: 5px;
+    outline: none;
+}
 .settimerpanel form button{
+    -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 5px;
     border: 2px solid black;
@@ -551,13 +641,18 @@ text-align: center;
     outline: none;
 }
 .settimerpanel form p p{
-     display: flex;
-     flex-wrap: wrap;
-     margin-top: 3px;
-     justify-content: space-around;
-     width: 100%;
-     align-self: center;
- }
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 3px;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    width: 100%;
+    -ms-flex-item-align: center;
+    align-self: center;
+}
 .settimerpanel form p {
     margin-top: 3px;
 
@@ -569,6 +664,7 @@ text-align: center;
 .icon {
     font-family: 'icon';
     font-size: 70px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     background: none;
@@ -578,6 +674,7 @@ text-align: center;
 .icon2 {
     font-family: 'icon';
     font-size: 50px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     background: none;
@@ -587,6 +684,7 @@ text-align: center;
 .icon3 {
     font-family: 'icon';
     font-size: 40px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: none;
     background: none;
@@ -596,6 +694,7 @@ text-align: center;
 .filmbutton {
     font-family: 'icon';
     font-size: 40px;
+    -webkit-box-shadow: none;
     box-shadow: none;
     border: 2px solid black;
     background: none;
@@ -623,6 +722,7 @@ text-align: center;
 }
 
 .storkUp {
+    -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 5px;
     border: none;
@@ -630,16 +730,21 @@ text-align: center;
     width: 100%;
     outline: none;
     font-size: 15px;
+    -webkit-transition: font-size 0.2s ease-out 0.2s;
+    -o-transition: font-size 0.2s ease-out 0.2s;
     transition: font-size 0.2s ease-out 0.2s;
     height: 30px;
 }
 
 .storkUp:hover {
     font-size: 22px;
+    -webkit-transition: font-size 0.2s ease-out 0.2s;
+    -o-transition: font-size 0.2s ease-out 0.2s;
     transition: font-size 0.2s ease-out 0.2s;
 }
 
 .storkDown {
+    -webkit-box-shadow: none;
     box-shadow: none;
     border-radius: 5px;
     border: none;
@@ -648,11 +753,15 @@ text-align: center;
     height: 30px;
     outline: none;
     font-size: 15px;
+    -webkit-transition: font-size 0.2s ease-out 0.2s;
+    -o-transition: font-size 0.2s ease-out 0.2s;
     transition: font-size 0.2s ease-out 0.2s;
 }
 
 .storkDown:hover {
     font-size: 22px;
+    -webkit-transition: font-size 0.2s ease-out 0.2s;
+    -o-transition: font-size 0.2s ease-out 0.2s;
     transition: font-size 0.2s ease-out 0.2s;
 }
 
@@ -675,6 +784,7 @@ text-align: center;
     border-radius: 50px;
     margin: 5px auto;
     position: relative;
+    -webkit-box-shadow: 0 0 0 2px black;
     box-shadow: 0 0 0 2px black;
     font-family: 'icon';
 }
@@ -716,6 +826,7 @@ text-align: center;
     height: 30px;
     width: 30px;
     background: white;
+    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px black;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px black;
     font-family: 'icon';
 }
@@ -727,6 +838,7 @@ text-align: center;
 
 .checkbox:checked + .checkbox-label {
     background: red;
+    -webkit-box-shadow: 0 0 0 2px red;
     box-shadow: 0 0 0 2px red;
     font-family: 'icon';
 }
@@ -743,5 +855,6 @@ text-align: center;
 
 .checkbox:checked + .checkbox-label:before {
     left: 30px;
+    -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px red;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 0 0 2px red;
 }

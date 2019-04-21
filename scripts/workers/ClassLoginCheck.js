@@ -14,7 +14,7 @@ class LoginCheck {
     }
 
     static checkPassword(email, password) {
-        let reg = /^[a-zA-Z0-9]+$/;
+        let reg = /^[A-zА-я0-9]+$/;
         if (reg.test(password) === false && ( password.length > 6 || password.length < 20)) {
             return "Invalid characters are used in the password";
         }

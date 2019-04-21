@@ -120,7 +120,9 @@ class Timer {
                                     let m, s, request = '';
                                     request = value.toString();
                                     if (request === 'false') {
+                                        if(document.getElementById('message')) document.getElementById('message').remove();
                                         let message = document.createElement('p');
+                                        message.id='message';
                                         message.innerHTML = 'Time not found, select other parameters';
                                         form.appendChild(message);
                                     }
@@ -241,7 +243,6 @@ class Timer {
                 el.classList.add('settimerpanel_hidden');
             }
         }
-
         function goPause() {
             cancelAnimationFrame(set);
         }
